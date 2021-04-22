@@ -84,9 +84,9 @@ def download_and_export(service):
                 print ("Download %s %d%%." % (file_name,int(status.progress() * 100)))
 
 def cleanup():
-    dir = './tmp'
+    dir = './tmp/'
     for f in os.listdir(dir):
-        os.remove(os.path.join(dir, f()))
+        os.remove(os.path.join(dir, f))
 
 def main():
     mode = ""
@@ -131,7 +131,7 @@ def main():
     if mode == 'dlAll':
         print('[*] Scanning target G-Drive...')
         list_files(service)
-        # download_and_export(service)
+        download_and_export(service)
         cleanup()
     else:
         print('\nInvalid arument (-m, --mode): %s\n' % mode)

@@ -51,6 +51,14 @@ page for your project appears.
   location of this file.
 7.  Rename the client secret JSON file to "credentials.json" and move it to the
   `gd_thief/credentials` directory.
+### Add the victim's Google account to the Application's Test Users
+In order to be able to run this script against the victim, you will need to add
+their Google account to the Test Users list for the App you just created
+1.  On the Left side of the screen click `OAuth consent screen`.  You "OAuth
+  Consent Screen" page appears.
+2.  Under `Test Users` click the `Add Users` button.
+3.  Enter the vicim's Gmail address in the `email address` field.
+4.  Click the `save` button.
 ### First Time running gd_thief
 Upon gaining access to a Target's Google account, you can run gd_thief
 1.  The first time running gd_thief, the script opens a new window prompting you
@@ -86,3 +94,9 @@ optional arguments:
 	-h, --help
 		show this help message and exit
 ```
+##TODO:
+1.  Threading
+2.  Error Checking
+3.  Wordlist file content search and download
+4.  File type download
+5.  Snort Sensitive Data regex file content search and download
