@@ -37,10 +37,10 @@ ehthumbs.db
 Thumbs.db
 
 # Creds
-./credentials/*.json
+token.json
+credentials.json
 
 # Temp Files
-./tmp/*.txt
+file_list.txt
 
 # Loot files
-./loot/*
