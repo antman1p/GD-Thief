@@ -83,6 +83,11 @@ def download_and_export(service):
                 status, done = downloader.next_chunk()
                 print ("Download %s %d%%." % (file_name,int(status.progress() * 100)))
 
+def cleanup():
+    dir = './tmp'
+    for f in os.listdir(dir):
+        os.remove(os.path.join(dir, f()))
+
 def main():
     mode = ""
 
@@ -127,6 +132,7 @@ def main():
         print('[*] Scanning target G-Drive...')
         list_files(service)
         # download_and_export(service)
+        cleanup()
     else:
         print('\nInvalid arument (-m, --mode): %s\n' % mode)
         print(usage)
