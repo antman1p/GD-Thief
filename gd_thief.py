@@ -91,7 +91,7 @@ def main():
 
     #help
     help = '\nThis Module will connect to Google\'s API using an access token and '
-    help += 'exfiltrate files\n from a target\'s Google Drive'
+    help += 'exfiltrate files\nfrom a target\'s Google Drive'
     help += '\n\narguments:'
     help += '\n\t-m [{dlAll}],'
     help += '\n\t\t--mode [{dlAll}]'
@@ -99,7 +99,7 @@ def main():
     help += '\n\t\tCan be \"dlAll\", or... (default: dlAll)'
 
     help += '\n\noptional arguments:'
-    help += '\n\n\t-h, --help\n\t\t\tshow this help message and exit\n'
+    help += '\n\n\t-h, --help\n\t\tshow this help message and exit\n'
 
     # try parsing options and arguments
     try :
