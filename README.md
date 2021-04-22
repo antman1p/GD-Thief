@@ -1,8 +1,13 @@
 # GD-Thief
 Red Team tool for exfiltrating files from a target's Google Drive that you have access to, via Google's API.
+## Dependencies
+Google API Libraries: `pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib`
 ## Usage:
 ```
-usage: gd_thief.py [-h] -m [{dlAll,} (default = dlAll)
+usage:
+
+gd_thief.py [-h] -m [{dlAll,} (default = dlAll)
+
 
 help:
 
