@@ -97,7 +97,7 @@ optional arguments:
 		show this help message and exit
 ```
 ## TODO:
-1.  Threading
+1.  ~Threading~
 2.  Error Checking
 3.  Wordlist file content search and download
 4.  File type download
