@@ -98,7 +98,9 @@ optional arguments:
 ```
 ## TODO:
 1.  ~Threading~
-2.  Error Checking
+2.  ~Error Checking~
 3.  Wordlist file content search and download
 4.  File type download
 5.  Snort Sensitive Data regex file content search and download
+## Special Thanks:
+Thank you to my good friend [Cedric Owens](https://github.com/cedowens) for helping me with the threading piece!
