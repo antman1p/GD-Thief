@@ -1,5 +1,7 @@
 # GD-Thief
-Red Team tool for exfiltrating files from a target's Google Drive that you have access to, via Google's API.
+Red Team tool for exfiltrating files from a target's Google Drive that you(the attacker) has access to, via the Google Drive API.
+This includes includes all shared files, all files from shared drives, and all files from domain drives that the target
+has access to.
 ## HOW TO
 ### Create a new Google Cloud Platform (GCP) project
 Steps to get the Google API Access Token needed for connecting to the API

@@ -1,4 +1,6 @@
 #!/bin/env python3
+### GD Thief
+### Written by: Antonio "4n7m4n" Piazza @antman1p
 import io
 import os.path
 import getopt
@@ -11,9 +13,9 @@ from googleapiclient.http import MediaIoBaseDownload
 from queue import Queue
 import threading
 
+### Full G-Drive API scope
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
-q = Queue()
 
 def build_service():
     creds = None
@@ -154,6 +156,7 @@ def main():
     if mode == 'dlAll':
         print('[*] Scanning target G-Drive...')
         filelist = list_files()
+        q = Queue()
 
         print('[*] Downloading Files...')
         for x in range(int(250)):
@@ -167,6 +170,5 @@ def main():
         print('\nInvalid arument (-m, --mode): %s\n' % mode)
         print(usage)
         sys.exit(2)
-
 if __name__ == '__main__':
     main()
