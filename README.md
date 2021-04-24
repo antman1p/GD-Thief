@@ -19,7 +19,7 @@ Steps to get the Google API Access Token needed for connecting to the API
 1.  Next to "Google Cloud Platform," click the `Down arrow` and select the project
   you just created from the dropdown list.
 2.  In the top-left corner, click `Menu` > `APIs & Services`.
-3.  Click `Enable APIs and Services`. The `Welcome to API Library` page appears.
+3.  Click `Enable APIs and Services`. The "Welcome to API Library" page appears.
 4.  In the `search field`, enter "Google Drive".
 5.  Click the API to enable. The API page appears.
 6.  Click `Enable`. The Overview page appears.
