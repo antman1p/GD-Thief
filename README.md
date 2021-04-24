@@ -77,7 +77,7 @@ Google API Libraries: `pip install --upgrade google-api-python-client google-aut
 ```
 usage:
 
-gd_thief.py [-h] -m [{dlAll,} (default = dlAll)
+gd_thief.py [-h] -m [{dlAll,}
         [-t <THREAD COUNT>]
 
 help:
@@ -89,11 +89,11 @@ arguments:
         -m [{dlAll}],
                 --mode [{dlAll}]
                 The mode of file download
-                Can be "dlAll", or... (default: dlAll)
+                Can be "dlAll", or... (More options to come)
 
 optional arguments:
         -t <THREAD COUNT>, --threads <THREAD COUNT>
-                        Number of threads. (Too many could exceeed Google's rate limit threshold).
+                        Number of threads. (Too many could exceeed Google's rate limit threshold)
 
         -h, --help
                 show this help message and exit
