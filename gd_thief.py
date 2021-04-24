@@ -123,8 +123,10 @@ def threader(q):
 
 def main():
     mode = ""
+    thread = 1
     # usage
     usage = '\nusage: gd_thief.py [-h] -m [{dlAll,} (default = dlAll)\n'
+    usage += '\t[-t <THREAD COUNT>]'
     #help
     help = '\nThis Module will connect to Google\'s API using an access token and '
     help += 'exfiltrate files\nfrom a target\'s Google Drive'
@@ -134,10 +136,12 @@ def main():
     help += '\n\t\tThe mode of file download'
     help += '\n\t\tCan be \"dlAll\", or... (default: dlAll)'
     help += '\n\noptional arguments:'
+    help += '\n\t-t <THREAD COUNT>, --threads <THREAD COUNT>'
+    help += '\n\t\t\tNumber of threads. (Too many could exceeed Google\'s rate limit threshold).'
     help += '\n\n\t-h, --help\n\t\tshow this help message and exit\n'
     # try parsing options and arguments
     try :
-        opts, args = getopt.getopt(sys.argv[1:], "hm:", ["help", "mode="])
+        opts, args = getopt.getopt(sys.argv[1:], "hm:t:", ["help", "mode=", "thread="])
     except getopt.GetoptError as err:
         print(str(err))
         print(usage)
@@ -148,6 +152,8 @@ def main():
             sys.exit()
         if opt in ("-m", "--mode"):
             mode = arg
+        if opt in ("-t", "--threads"):
+            thread = arg
     # check for mandatory narguments
     if not mode:
         mode ='dlAll'
@@ -159,7 +165,7 @@ def main():
         q = Queue()
 
         print('[*] Downloading Files...')
-        for x in range(int(250)):
+        for x in range(int(thread)):
             t = threading.Thread(target=threader, args=(q,))
             t.daemon = True
             t.start()
