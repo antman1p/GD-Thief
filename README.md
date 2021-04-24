@@ -98,6 +98,14 @@ optional arguments:
         -h, --help
                 show this help message and exit
 ```
+## NOTES:
+-  Setting the thread count too high will cause an HTTP 403 "Rate limit exceeded," indicating that the 
+user has reached Google Drive API's maximum request rate.
+	-  The thread count limit vaires from machine to machine.  I've set it to 250 on a Macbook Pro, while 
+	250 was too high
+## REFERENCES:
+-  The secrets-keywords dictionary file was taken from SecLists' [secrets-keywords.txt](https://github.com/danielmiessler/SecLists/blob/master/Discovery/Variables/secret-keywords.txt)
+https://github.com/danielmiessler/SecLists/blob/master/Discovery/Variables/secret-keywords.txt
 ## TODO:
 1.  ~Threading~
 2.  ~Error Checking~
