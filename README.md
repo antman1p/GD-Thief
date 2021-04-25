@@ -5,7 +5,7 @@ has access to.
 ## HOW TO
 ### Create a new Google Cloud Platform (GCP) project
 Steps to get the Google API Access Token needed for connecting to the API
-1.  Create a burner gmail/google account
+1.  Create a burner Gmail/google account
 2.  Login to said account
 3.  Navigate to the Google [Cloud Console](https://console.cloud.google.com/)
 4.  Next to "Google Cloud Platform," click the `Down arrow`. A dialog listing current projects appears.
@@ -59,7 +59,7 @@ their Google account to the Test Users list for the App you just created
 1.  On the Left side of the screen click `OAuth consent screen`.  You "OAuth
   Consent Screen" page appears.
 2.  Under `Test Users` click the `Add Users` button.
-3.  Enter the vicim's Gmail address in the `email address` field.
+3.  Enter the victim's Gmail address in the `email address` field.
 4.  Click the `save` button.
 ### First Time running gd_thief
 Upon gaining access to a Target's Google account, you can run gd_thief
