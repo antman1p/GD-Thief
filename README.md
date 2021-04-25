@@ -8,7 +8,7 @@ Steps to get the Google API Access Token needed for connecting to the API
 1.  Create a burner Gmail/google account
 2.  Login to said account
 3.  Navigate to the Google [Cloud Console](https://console.cloud.google.com/)
-4.  Next to "Google Cloud Platform," click the `Down arrow`. A dialog listing current projects appears.
+4.  Next to "Google Cloud Platform," click the "Select a project" `Down arrow`. A dialog listing current projects appears.
 5.  Click `New Project`. The New Project screen appears.
 6.  In the `Project Name field`, enter a descriptive name for your project.
 7.  (Optional) To edit the `Project ID`, click `Edit`. The project ID can't be
@@ -21,7 +21,7 @@ Steps to get the Google API Access Token needed for connecting to the API
 2.  In the top-left corner, click `Menu` > `APIs & Services`.
 3.  Click `Enable APIs and Services`. The "Welcome to API Library" page appears.
 4.  In the `search field`, enter "Google Drive".
-5.  Click the API to enable. The API page appears.
+5.  Click the Google Drive API. The API page appears.
 6.  Click `Enable`. The Overview page appears.
 ###  Configure OAuth Consent screen
 1.  On the left side of the Overview page click `Credentials`. The credential
@@ -35,7 +35,7 @@ page for your project appears.
     - Enter your burner email address in the `Developer contact information` field.
 6.  Click `Save and Continue`. The "Scopes" page appears.
 7.  Click `Add or Remove Scopes`. The "Update selected scopes" page appears.
-8.  Check all of the `Google Drive` the scopes to use in the app.
+8.  Check all of the `Google Drive` the scopes to use in the app.  GD scopes cover 2 pages, so click the next page and ensure that you check them all.
 9.  Click `Update`. A list of scopes for your app appears.
 10. Click `Save and Continue`. The "Edit app registration" page appears.
 11. Click `Save and Continue`. The "OAuth consent screen" appears.
@@ -65,8 +65,7 @@ their Google account to the Test Users list for the App you just created
 Upon gaining access to a Target's Google account, you can run gd_thief
 1.  The first time running gd_thief, the script opens a new window prompting you
 to authorize access to your data:
-    1.  If you are not already signed in to your Google account, you are
-      prompted to sign in. If you are signed in to multiple Google accounts, you
+    1.  If you are signed in to multiple Google accounts, you
       are asked to select one account to use for the authorization.  Make sure
       you select the victim's Google account
 
