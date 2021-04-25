@@ -76,9 +76,8 @@ Google API Libraries: `pip install --upgrade google-api-python-client google-aut
 ## Usage:
 ```
 usage:
-
-gd_thief.py [-h] -m [{dlAll,}
-        [-t <THREAD COUNT>]
+gd_thief.py [-h] -m [{dlAll, dlDict[-d <DICTIONARY FILE PATH>]}
+	[-t <THREAD COUNT>]
 
 help:
 
@@ -86,12 +85,15 @@ This Module will connect to Google's API using an access token and exfiltrate fi
 from a target's Google Drive
 
 arguments:
-        -m [{dlAll}],
-                --mode [{dlAll}]
+        -m [{dlAll, dlDict}],
+                --mode [{dlAll, dlDict}]
                 The mode of file download
-                Can be "dlAll", or... (More options to come)
+                Can be "dlAll", "dlDict [-d <DICTIONARY FILE PATH>]", or... (More options to come)
 
 optional arguments:
+        -d <DICTIONARY FILE PATH>, --dict <DICTIONARY FILE PATH>
+                        Path to the dictionary file. Mandatory with download mode"-m, --mode dlDict"
+                        You can use the provided dictionary, per example: "-d ./dictionaries/secrets-keywords.txt"
         -t <THREAD COUNT>, --threads <THREAD COUNT>
                         Number of threads. (Too many could exceeed Google's rate limit threshold)
 
@@ -108,7 +110,7 @@ user has reached Google Drive API's maximum request rate.
 ## TODO:
 1.  ~Threading~
 2.  ~Error Checking~
-3.  Wordlist file content search and download
+3.  ~Wordlist file content search and download~
 4.  File type download
 5.  Snort Sensitive Data regex file content search and download
 ## Special Thanks:
