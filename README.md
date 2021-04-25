@@ -113,5 +113,6 @@ user has reached Google Drive API's maximum request rate.
 3.  ~Wordlist file content search and download~
 4.  File type download
 5.  Snort Sensitive Data regex file content search and download
+6.  ~Optical Character Recognition (OCR)~
 ## Special Thanks:
 Thank you to my good friend [Cedric Owens](https://github.com/cedowens) for helping me with the threading piece!
