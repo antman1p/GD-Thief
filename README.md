@@ -3,6 +3,7 @@ Red Team tool for exfiltrating files from a target's Google Drive that you(the a
 This includes includes all shared files, all files from shared drives, and all files from domain drives that the target
 has access to.
 ## HOW TO
+For an illustrated walkthrough, check out my [blog post](https://antman1p-30185.medium.com/youre-a-gd-thief-1e02358fd557).
 ### Create a new Google Cloud Platform (GCP) project
 Steps to get the Google API Access Token needed for connecting to the API
 1.  Create a burner Gmail/google account
