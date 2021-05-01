@@ -36,7 +36,7 @@ page for your project appears.
     - Enter your burner email address in the `Developer contact information` field.
 6.  Click `Save and Continue`. The "Scopes" page appears.
 7.  Click `Add or Remove Scopes`. The "Update selected scopes" page appears.
-8.  Check all of the `Google Drive` the scopes to use in the app.  GD scopes cover 2 pages, so click the next page and ensure that you check them all.
+8.  Check all of the `Google Drive` scopes to use in the app.  GD scopes cover 2 pages, so click the next page and ensure that you check them all.
 9.  Click `Update`. A list of scopes for your app appears.
 10. Click `Save and Continue`. The "Edit app registration" page appears.
 11. Click `Save and Continue`. The "OAuth consent screen" appears.
