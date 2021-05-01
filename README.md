@@ -76,7 +76,7 @@ Google API Libraries: `pip install --upgrade google-api-python-client google-aut
 ## Usage:
 ```
 usage:
-gd_thief.py [-h] -m [{dlAll, dlDict[-d <DICTIONARY FILE PATH>]}
+python3 gd_thief.py [-h] -m [{dlAll, dlDict[-d <DICTIONARY FILE PATH>]}
 	[-t <THREAD COUNT>]
 
 help:

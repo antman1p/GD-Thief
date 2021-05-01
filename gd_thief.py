@@ -179,7 +179,7 @@ def main():
     dict_path = ""
 
     # usage
-    usage = '\nusage: gd_thief.py [-h] -m [{dlAll, dlDict[-d <DICTIONARY FILE PATH>]}\n'
+    usage = '\nusage: python3 gd_thief.py [-h] -m [{dlAll, dlDict[-d <DICTIONARY FILE PATH>]}\n'
     usage += '\t[-t <THREAD COUNT>]'
     #help
     help = '\nThis Module will connect to Google\'s API using an access token and '
