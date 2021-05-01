@@ -82,7 +82,7 @@ gd_thief.py [-h] -m [{dlAll, dlDict[-d <DICTIONARY FILE PATH>]}
 help:
 
 This Module will connect to Google's API using an access token and exfiltrate files
-from a target's Google Drive
+from a target's Google Drive.  It will output exfiltrated files to the ./loot directory
 
 arguments:
         -m [{dlAll, dlDict}],
@@ -101,9 +101,9 @@ optional arguments:
                 show this help message and exit
 ```
 ## NOTES:
--  Setting the thread count too high will cause an HTTP 403 "Rate limit exceeded," indicating that the 
+-  Setting the thread count too high will cause an HTTP 403 "Rate limit exceeded," indicating that the
 user has reached Google Drive API's maximum request rate.
-	-  The thread count limit vaires from machine to machine.  I've set it to 250 on a Macbook Pro, while 
+	-  The thread count limit vaires from machine to machine.  I've set it to 250 on a Macbook Pro, while
 	250 was too high for my Windows 10 Desktop
 ## REFERENCES:
 -  The secrets-keywords dictionary file was taken from SecLists' [secrets-keywords.txt](https://github.com/danielmiessler/SecLists/blob/master/Discovery/Variables/secret-keywords.txt)

