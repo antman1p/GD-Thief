@@ -1,4 +1,11 @@
+<h1 align="center">
+  <img src="static/gd_thief-banner.png" alt="gd-thief" width="400px"></a>
+  <br>
+</h1>
+<p align="center">
 <a href="https://twitter.com/antman1p"><img src="https://img.shields.io/twitter/follow/antman1p.svg?logo=twitter"></a>
+</p>
+
 # GD-Thief
 Red Team tool for exfiltrating files from a target's Google Drive that you(the attacker) has access to, via the Google Drive API.
 This includes includes all shared files, all files from shared drives, and all files from domain drives that the target
